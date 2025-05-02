@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🚨 MBC - YOUR LAST CHANCE!!! 🚨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        
+        :root {
+            --gold: #ffd700;
+            --red: #ff0000;
+            --black: #000000;
+        }
+        
+        body {
+            background: var(--black);
+            font-family: 'Roboto', Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 10px;
+            color: var(--gold);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(255, 0, 0, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(255, 215, 0, 0.2) 0%, transparent 40%);
+            animation: bgPulse 4s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            padding: 10px;
+        }
+
+        .title-container {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            text-align: left;
+        }
+
+        .title-container-right {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            text-align: right;
+        }
+
+        .title {
+            font-size: min(6vw, 60px);
+            color: var(--gold);
+            text-shadow: 
+                3px 3px 0 var(--red),
+                -1px -1px 0 var(--red),
+                0 0 20px var(--gold);
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: 2px;
+            animation: titleFlash 2s infinite;
+        }
+
+        @keyframes titleFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .video-container {
+            position: relative;
+            width: 60%;
+            padding-top: 33.75%;
+            background: var(--black);
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 30px var(--gold);
+            margin-top: 40px;
+            overflow: hidden;
+        }
+
+        .video-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-container:hover .video-controls {
+            opacity: 1;
+        }
+
+        .play-pause, .mute-unmute {
+            background: var(--red);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .play-pause:hover, .mute-unmute:hover {
+            background: var(--gold);
+            color: var(--red);
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 10px;
+            background: rgba(255, 215, 0, 0.3);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--gold);
+            width: 0;
+        }
+
+        .floating-text {
+            position: fixed;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: min(2.5vh, 24px);
+            text-shadow: 2px 2px var(--red);
+            animation: float 3s infinite;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            border: 2px solid var(--gold);
+            white-space: nowrap;
+            z-index: 1000;
+            font-family: 'Roboto', Arial, sans-serif;
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        .floating-text:hover {
+            transform: scale(1.1);
+            background: var(--red);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        /* Position specific styles */
+        .left-edge { left: 20px; }
+        .right-edge { right: 20px; }
+        .top-edge { top: 20px; }
+        .bottom-edge { bottom: 20px; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .mega-button {
+            background: var(--red);
+            border: 3px solid var(--gold);
+            padding: 20px 40px;
+            font-size: min(4vw, 32px);
+            cursor: pointer;
+            color: var(--gold);
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            letter-spacing: 1px;
+            animation: buttonFlash 1s infinite;
+        }
+
+        @keyframes buttonFlash {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 20px var(--gold);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 40px var(--red);
+            }
+        }
+
+        .mega-button:hover {
+            background: var(--gold);
+            color: var(--red);
+            transform: translateY(-5px);
+            animation: none;
+            box-shadow: 0 0 40px var(--gold);
+        }
+
+        .arrow {
+            position: absolute;
+            color: var(--gold);
+            font-size: min(4vw, 40px);
+            animation: arrowBounce 1s infinite;
+            text-shadow: 2px 2px var(--red);
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-10px); }
+        }
+
+        .counter {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 20px;
+            color: var(--gold);
+            font-size: min(2.5vh, 24px);
+            font-weight: bold;
+            background: var(--red);
+            padding: 15px 30px;
+            z-index: 1000;
+            white-space: nowrap;
+            font-family: 'Roboto', Arial, sans-serif;
+            letter-spacing: 0.5px;
+            border: 2px solid var(--gold);
+            animation: counterFlash 1s infinite;
+        }
+
+        @keyframes counterFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; background: #cc0000; }
+        }
+
+        .scrolling-banner {
+            position: fixed;
+            right: -20px;
+            top: 50%;
+            transform: rotate(90deg) translateY(-50%);
+            transform-origin: right center;
+            background: var(--red);
+            color: var(--gold);
+            padding: 10px;
+            font-size: 18px;
+            white-space: nowrap;
+            animation: bannerScroll 20s linear infinite;
+            z-index: 1000;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            font-weight: bold;
+        }
+
+        @keyframes bannerScroll {
+            0% { transform: rotate(90deg) translateY(-50%) translateX(100%); }
+            100% { transform: rotate(90deg) translateY(-50%) translateX(-100%); }
+        }
+
+        .chaos-element {
+            position: absolute;
+            font-size: 24px;
+            animation: chaosFloat 10s linear infinite;
+            opacity: 0.7;
+            text-shadow: 0 0 10px var(--gold);
+            color: var(--gold);
+        }
+
+        .black-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 9999;
+            display: none;
+        }
+
+        @keyframes chaosFloat {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(var(--tx), var(--ty)) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="black-overlay"></div>
+    
+    <div class="container">
+        <div class="title-container">
+            <h1 class="title">MBC</h1>
+        </div>
+
+        <div class="title-container-right">
+            <h1 class="title">2025</h1>
+        </div>
+
+        <div class="video-container">
+            <video class="video-player" id="mainVideo">
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-controls">
+                <button class="play-pause">▶️</button>
+                <button class="mute-unmute">🔊</button>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <div class="arrow" style="left: -50px">👉</div>
+            <button class="mega-button">
+                🔥 CLICK HERE TO CHANGE YOUR LIFE! 🔥<br>
+                <span style="font-size: min(2.5vw, 20px)">⚠️ CLICK NOW! ⚠️</span>
+            </button>
+            <div class="arrow" style="right: -50px">👈</div>
+        </div>
+    </div>
+
+    <div class="floating-text left-edge" style="top: 25%">😫 500+ REJECTED APPLICATIONS?</div>
+    <div class="floating-text left-edge" style="top: 45%">😤 PARENTS WON'T STOP ASKING?</div>
+    <div class="floating-text left-edge" style="top: 65%">💸 TIRED OF BEING BROKE?</div>
+    <div class="floating-text right-edge" style="top: 25%">😢 "ENTRY LEVEL" = 5 YEARS EXP?</div>
+    <div class="floating-text right-edge" style="top: 45%">💰 FRIENDS MAKING $200K+?</div>
+    <div class="floating-text right-edge" style="top: 65%">🚀 READY TO 100X YOUR INCOME?</div>
+
+    <div class="counter">
+        ⚠️ WARNING: Over 1,497 people viewing this page right now! ⚠️
+    </div>
+
+    <div class="scrolling-banner">
+        🎯 LAST CHANCE! 💰 DON'T MISS OUT! 🚀 SPOTS FILLING FAST! 💎 SECRET OPPORTUNITY! 🔥 ACT NOW! 
+    </div>
+
+    <script>
+        // Update viewer counter
+        setInterval(() => {
+            const counter = document.querySelector('.counter');
+            const currentNumber = parseInt(counter.innerText.match(/\d+/)[0]);
+            counter.innerHTML = `⚠️ WARNING: Over ${currentNumber + Math.floor(Math.random() * 10)} people viewing this page right now! ⚠️`;
+        }, 3000);
+
+        // Make floating text move with different delays
+        document.querySelectorAll('.floating-text').forEach((text, index) => {
+            text.style.animationDelay = `${index * 0.5}s`;
+        });
+
+        // Handle button click
+        document.querySelector('.mega-button').addEventListener('click', () => {
+            document.querySelector('.black-overlay').style.display = 'block';
+        });
+
+        // Add chaos elements
+        const chaosContainer = document.createElement('div');
+        chaosContainer.className = 'chaos-elements';
+        document.body.appendChild(chaosContainer);
+
+        const symbols = ['💰', '💎', '🚀', '💪', '🎯', '🔥', '💼', '📈'];
+        for(let i = 0; i < 20; i++) {
+            const element = document.createElement('div');
+            element.className = 'chaos-element';
+            element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            element.style.left = Math.random() * 100 + 'vw';
+            element.style.top = Math.random() * 100 + 'vh';
+            element.style.setProperty('--tx', (Math.random() * 200 - 100) + 'vw');
+            element.style.setProperty('--ty', (Math.random() * 200 - 100) + 'vh');
+            element.style.animationDelay = -Math.random() * 10 + 's';
+            chaosContainer.appendChild(element);
+        }
+
+        const video = document.getElementById('mainVideo');
+        const playPauseBtn = document.querySelector('.play-pause');
+        const muteBtn = document.querySelector('.mute-unmute');
+        const progressBar = document.querySelector('.progress-bar');
+        const progress = document.querySelector('.progress');
+
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                video.pause();
+                playPauseBtn.textContent = '▶️';
+            }
+        });
+
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            muteBtn.textContent = video.muted ? '🔇' : '🔊';
+        });
+
+        video.addEventListener('timeupdate', () => {
+            const percentage = (video.currentTime / video.duration) * 100;
+            progress.style.width = percentage + '%';
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const pos = (e.pageX - progressBar.offsetLeft) / progressBar.offsetWidth;
+            video.currentTime = pos * video.duration;
+        });
+
+        // Add autoplay with muted option (more likely to work in modern browsers)
+        video.muted = true;
+        video.play().catch(function(error) {
+            console.log("Video autoplay failed:", error);
+        });
+    </script>
+</body>
+</html>
